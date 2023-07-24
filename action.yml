@@ -1,0 +1,24 @@
+name: 'Raygun Deployments Action'
+description: 'Triggers a deployment in Raygun'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
+inputs:
+  personal-access-token:
+    description: 'Raygun Personal Access Token'
+    required: true
+  api-key:
+    description: 'Raygun Application API Key'
+    required: true
+  version:
+    description: 'Version of the application'
+    required: false
+  owner-name:
+    description: 'Name of the owner'
+    required: false
+  email-address:
+    description: 'Email address of the owner'
+    required: false
+  comment:
+    description: 'Optional comment'
+    required: false
