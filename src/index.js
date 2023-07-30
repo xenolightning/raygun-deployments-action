@@ -2,6 +2,8 @@ const axios = require('axios');
 const core = require('@actions/core');
 const github = require('@actions/github');
 
+module.exports = run;
+
 const raygunBaseUri = 'https://api.raygun.com';
 const scmType = "GitHub";
 
@@ -50,4 +52,8 @@ async function run() {
     }
 }
 
-run();
+if (require.main === module) {
+    run();
+}
+
+module.exports = run;
