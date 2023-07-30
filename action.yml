@@ -12,7 +12,7 @@ inputs:
     required: true
   version:
     description: 'Version of the application'
-    required: false
+    required: true
   owner-name:
     description: 'Name of the owner'
     required: false

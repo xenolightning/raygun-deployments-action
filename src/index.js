@@ -16,6 +16,10 @@ async function run() {
         const commitSha = process.env.GITHUB_SHA;
         const deployedAt = new Date().toISOString();
 
+        if (!version || version.length === 0) {
+            core.setFailed(`Version must not be empty`);
+        }
+
         const raygunDeployment = {
             version: version,
             ownerName: ownerName,
