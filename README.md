@@ -35,8 +35,8 @@ This action accepts the following inputs:
 | `personal-access-token` | Your Raygun Personal Access Token. This should be stored in your repository secrets. | Yes | N/A |
 | `api-key` | Your Raygun API Key. This should be stored in your repository secrets. | Yes | N/A |
 | `version` | The version of the software being deployed. | Yes | N/A |
-| `ownerName` | The name of the person or entity responsible for the deployment. | No | Commit author's name |
-| `emailAddress` | The email address of the person or entity responsible for the deployment. | No | Commit author's email |
+| `owner-name` | The name of the person or entity responsible for the deployment. | No | Commit author's name |
+| `email-address` | The email address of the person or entity responsible for the deployment. | No | Commit author's email |
 | `comment` | An optional comment about the deployment. | No | Empty string |
 
 ## Outputs
