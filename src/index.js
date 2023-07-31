@@ -6,6 +6,9 @@ module.exports = run;
 
 const raygunBaseUri = 'https://api.raygun.com';
 const scmType = "GitHub";
+const outputs = {
+    'deploymentId': 'deploymentId'
+}
 
 async function run() {
     try {
@@ -20,6 +23,7 @@ async function run() {
 
         if (!version || version.length === 0) {
             core.setFailed(`Version must not be empty`);
+            return;
         }
 
         const raygunDeployment = {
@@ -47,6 +51,8 @@ async function run() {
         );
 
         console.log('Deployment successful', response.data);
+
+        core.setOutput(outputs.deploymentId, response.data.identifier);
     } catch (error) {
         core.setFailed(`Action failed with error ${error}`);
     }
@@ -56,4 +62,7 @@ if (require.main === module) {
     run();
 }
 
-module.exports = run;
+module.exports = {
+    run,
+    outputs
+};

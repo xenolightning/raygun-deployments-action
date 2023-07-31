@@ -13063,6 +13063,80 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 4351:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const axios = __nccwpck_require__(8757);
+const core = __nccwpck_require__(2186);
+const github = __nccwpck_require__(5438);
+
+module.exports = run;
+
+const raygunBaseUri = 'https://api.raygun.com';
+const scmType = "GitHub";
+const outputs = {
+    'deploymentId': 'deploymentId'
+}
+
+async function run() {
+    try {
+        const apiKey = core.getInput('api-key');
+        const token = core.getInput('personal-access-token');
+        const version = core.getInput('version');
+        const ownerName = core.getInput('owner-name') || github.context.actor;
+        const emailAddress = core.getInput('email-address') || `${github.context.actor}@users.noreply.github.com`;
+        const comment = core.getInput('comment') || "";
+        const commitSha = process.env.GITHUB_SHA;
+        const deployedAt = new Date().toISOString();
+
+        if (!version || version.length === 0) {
+            core.setFailed(`Version must not be empty`);
+            return;
+        }
+
+        const raygunDeployment = {
+            version: version,
+            ownerName: ownerName,
+            emailAddress: emailAddress,
+            comment: comment,
+            scmIdentifier: commitSha,
+            scmType: scmType,
+            deployedAt: deployedAt
+        };
+
+        const axiosConfig = {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        };
+
+        console.log("Deploying:", raygunDeployment);
+
+        const response = await axios.post(
+            `${raygunBaseUri}/v3/applications/api-key/${apiKey}/deployments`,
+            raygunDeployment,
+            axiosConfig
+        );
+
+        console.log('Deployment successful', response.data);
+
+        core.setOutput(outputs.deploymentId, response.data.identifier);
+    } catch (error) {
+        core.setFailed(`Action failed with error ${error}`);
+    }
+}
+
+if (require.main === require.cache[eval('__filename')]) {
+    run();
+}
+
+module.exports = {
+    run,
+    outputs
+};
+
+/***/ }),
+
 /***/ 2877:
 /***/ ((module) => {
 
@@ -17498,64 +17572,12 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
-const axios = __nccwpck_require__(8757);
-const core = __nccwpck_require__(2186);
-const github = __nccwpck_require__(5438);
-
-const raygunBaseUri = 'https://api.raygun.com';
-const scmType = "GitHub";
-
-async function run() {
-    try {
-        const apiKey = core.getInput('api-key');
-        const token = core.getInput('personal-access-token');
-        const version = core.getInput('version');
-        const ownerName = core.getInput('owner-name') || github.context.actor;
-        const emailAddress = core.getInput('email-address') || `${github.context.actor}@users.noreply.github.com`;
-        const comment = core.getInput('comment') || "";
-        const commitSha = process.env.GITHUB_SHA;
-        const deployedAt = new Date().toISOString();
-
-        if (!version || version.length === 0) {
-            core.setFailed(`Version must not be empty`);
-        }
-
-        const raygunDeployment = {
-            version: version,
-            ownerName: ownerName,
-            emailAddress: emailAddress,
-            comment: comment,
-            scmIdentifier: commitSha,
-            scmType: scmType,
-            deployedAt: deployedAt
-        };
-
-        const axiosConfig = {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        };
-
-        console.log("Deploying:", raygunDeployment);
-
-        const response = await axios.post(
-            `${raygunBaseUri}/v3/applications/api-key/${apiKey}/deployments`,
-            raygunDeployment,
-            axiosConfig
-        );
-
-        console.log('Deployment successful', response.data);
-    } catch (error) {
-        core.setFailed(`Action failed with error ${error}`);
-    }
-}
-
-run();
-})();
-
-module.exports = __webpack_exports__;
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __nccwpck_require__(4351);
+/******/ 	module.exports = __webpack_exports__;
+/******/ 	
 /******/ })()
 ;

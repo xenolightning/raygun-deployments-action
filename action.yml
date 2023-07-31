@@ -1,5 +1,5 @@
-name: 'Raygun Deployments Action'
-description: 'Triggers a deployment in Raygun'
+name: 'Raygun Deployments'
+description: 'Notifies Raygun of a deployment/release'
 branding:
   icon: 'zap'
   color: 'gray-dark'
@@ -25,3 +25,6 @@ inputs:
   comment:
     description: 'Optional comment'
     required: false
+outputs:
+  deploymentId:
+    description: 'The unique identifier for the newly created deployment'
