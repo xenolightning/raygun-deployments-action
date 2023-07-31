@@ -39,6 +39,13 @@ This action accepts the following inputs:
 | `emailAddress` | The email address of the person or entity responsible for the deployment. | No | Commit author's email |
 | `comment` | An optional comment about the deployment. | No | Empty string |
 
+## Outputs
+
+| Output | Description |
+| ----- | ----------- |
+| `deploymentId` | The unique identifier for the newly created deployment |
+
+
 ## Example
 
 Here's an example of a step that uses this action in a workflow that runs on every push to the `main` branch:
@@ -55,6 +62,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Run Raygun Deployment Action
+        id: raygun_deployment
         uses: xenolightning/raygun-deployments-action@v1
         with:
           personal-access-token: ${{ secrets.RAYGUN_PAT }}
@@ -63,6 +71,7 @@ jobs:
           ownerName: 'Your Name'
           emailAddress: 'your-email@domain.com'
           comment: 'Deployment comment'
+      - run: echo "Deployment [${{ steps.raygun_deployment.outputs.deploymentId }}] was created successfully 🎉"
 ```
 
 In this example, the `personal-access-token` and `api-key` are stored as secrets in the repository, the `version` is your internal version, and the `ownerName` and `emailAddress` are hard-coded. Adjust these inputs as needed for your use case.
