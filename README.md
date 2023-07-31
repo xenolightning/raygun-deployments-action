@@ -72,3 +72,21 @@ In this example, the `personal-access-token` and `api-key` are stored as secrets
 Remember to replace `your-email@domain.com`, and `'Your Name'` with your actual GitHub username, email, and name. Update the `v1.0.0` version tag as necessary. 
 
 The examples in the README show how to pass input parameters, but they're just examples. The real values should be determined based on the context and actual requirements of the workflow where this action is used.
+
+
+## Building from source
+
+Restore packages
+```
+yarn install
+```
+
+Run tests
+```
+npm run test
+```
+
+Run build script & generate dist output
+```
+npm run build
+```
