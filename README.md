@@ -1,3 +1,13 @@
+# Archived & Read-only
+
+Active development for this project has been transferred to Raygun. This repository is now archived and read-only.
+
+You can follow the official development and updates at [MindscapeHQ/raygun-deployments-action](https://github.com/MindscapeHQ/raygun-deployments-action)
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+
+
+
 # Raygun Deployments GitHub Action
 
 This GitHub Action is designed to interface with [Raygun Deployment Tracking](https://raygun.com/documentation/product-guides/deployment-tracking/overview/).
